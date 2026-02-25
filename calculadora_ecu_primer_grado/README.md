@@ -94,11 +94,11 @@ Definir Deshacer_M(Valor_A, Resultado_C, Operador):
 
 ### Interfaz de Terminal
 
-![Demostración 1](img/interfaz_terminal.png)
+![Demostración 1](../imgs/interfaz_terminal.png)
 
 ### Interfaz Web
 
-![Demostración 2](img/interfaz_web.png)
+![Demostración 2](../imgs/interfaz_web.png)
 
 ---
 

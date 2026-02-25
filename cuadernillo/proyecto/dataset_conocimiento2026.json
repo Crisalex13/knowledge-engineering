@@ -1,0 +1,206 @@
+{
+  "metadata": {
+    "id": "CONOCIMIENTO-2026",
+    "dominio": "Averias en baterias de estado solido",
+    "version": "1.0",
+    "descripcion": "Dataset para simulador de ingenieria del conocimiento - baterias de estado solido en vehiculos electricos",
+    "hash_semilla": "CONOCIMIENTO-2026",
+    "fecha_generacion": "2026-02-25"
+  },
+  "reglas": [
+    {
+      "id": "R001",
+      "nombre": "Degradacion_Termica_Critica",
+      "dominio_especifico": "bateria_estado_solido",
+      "condiciones": [
+        "temperatura_bateria_alta_sostenida",
+        "carga_se_detiene_antes_100",
+        "calor_excesivo_zona_bateria"
+      ],
+      "conclusion": "degradacion_termica_electrolito_solido",
+      "certeza": 0.92,
+      "explicacion_positiva": "La temperatura sostenida por encima de 60C en baterias de estado solido provoca expansion diferencial entre capas del electrolito solido y electrodos, generando microfisuras que reducen la conductividad ionica y detienen la carga prematuramente.",
+      "explicacion_descarte": {
+        "fallo_cargador_externo": "Descartado porque el calor excesivo en la zona fisica de la bateria confirma que el problema es interno.",
+        "fallo_bms": "Menos probable porque el BMS responderia con corte total, no con carga parcial progresiva."
+      },
+      "accion_requerida": "sustitucion_modulo_bateria_estado_solido",
+      "urgencia": "alta",
+      "especificaciones_tecnicas": "Temperatura critica de electrolito solido LLZO: mayor a 60C. Expansion termica diferencial Li-metal vs electrolito: 15-25 ppm/C."
+    },
+    {
+      "id": "R002",
+      "nombre": "Fisuracion_Electrolito_Solido",
+      "dominio_especifico": "bateria_estado_solido",
+      "condiciones": [
+        "carga_normal_hasta_80_por_ciento",
+        "autonomia_reducida_abruptamente",
+        "sin_cambios_habitos_conduccion"
+      ],
+      "conclusion": "fisuracion_interfaz_electrolito_catodo",
+      "certeza": 0.88,
+      "explicacion_positiva": "La carga aparentemente normal hasta el 80% con autonomia reducida abruptamente revela fisuracion en la interfaz electrolito-catodo. El electrolito solido permite cargar hasta cierto umbral pero las microfisuras reducen el area activa disponible, disminuyendo la capacidad real sin alertar los sensores convencionales.",
+      "explicacion_descarte": {
+        "sensor_temperatura_defectuoso": "Menos probable porque un sensor defectuoso mostraria lecturas anomalas de temperatura, aqui no hay alarmas termicas.",
+        "degradacion_gradual_natural": "Descartado porque la reduccion es abrupta, no gradual como seria en envejecimiento normal."
+      },
+      "accion_requerida": "diagnostico_impedancia_electroquimica_y_sustitucion",
+      "urgencia": "alta",
+      "especificaciones_tecnicas": "Impedancia de interfaz SSE-catodo esperada: menor a 50 ohm*cm2. Valor critico con fisuracion: mayor a 200 ohm*cm2."
+    },
+    {
+      "id": "R003",
+      "nombre": "Formacion_Dendrita_Litio_Metalico",
+      "dominio_especifico": "bateria_estado_solido",
+      "condiciones": [
+        "carga_rapida_frecuente",
+        "microcorte_electrico_durante_conduccion",
+        "temperatura_bateria_normal"
+      ],
+      "conclusion": "formacion_dendrita_litio_metalico",
+      "certeza": 0.85,
+      "explicacion_positiva": "La carga rapida frecuente en baterias de estado solido con anodo de litio metalico provoca deposicion irregular del litio, formando dendritas que atraviesan el electrolito solido y generan microcortocircuitos internos intermitentes.",
+      "explicacion_descarte": {
+        "fallo_conector_alto_voltaje": "Descartado porque un fallo de conector generaria corte total o progresivo, no microcortes intermitentes.",
+        "problema_inversor": "Menos probable porque el inversor no muestra codigos de error asociados."
+      },
+      "accion_requerida": "sustitucion_urgente_bateria_riesgo_cortocircuito",
+      "urgencia": "critica",
+      "especificaciones_tecnicas": "Densidad de corriente maxima segura en anodo Li-metal: 0.5 mA/cm2. Carga rapida excede 2-3 mA/cm2 generando dendritas."
+    },
+    {
+      "id": "R004",
+      "nombre": "Delaminacion_Interfaz_Anodo_Electrolito",
+      "dominio_especifico": "bateria_estado_solido",
+      "condiciones": [
+        "eficiencia_carga_reducida_progresivamente",
+        "bateria_pierde_carga_en_reposo",
+        "ciclos_carga_descarga_frecuentes"
+      ],
+      "conclusion": "delaminacion_interfaz_anodo_electrolito_solido",
+      "certeza": 0.83,
+      "explicacion_positiva": "La delaminacion ocurre cuando el litio metalico se contrae durante descarga y se expande en carga, creando separacion fisica entre anodo y electrolito solido. Esto reduce la conductividad ionica progresivamente y genera autodescarga por perdida de contacto interfacial.",
+      "explicacion_descarte": {
+        "celda_en_cortocircuito": "Descartado porque el cortocircuito generaria calor excesivo y perdida rapida total, aqui la degradacion es progresiva.",
+        "fallo_sistema_gestion_energia": "Menos probable porque el BMS muestra lecturas coherentes, solo la eficiencia real disminuye."
+      },
+      "accion_requerida": "revision_presion_mecanica_stack_y_posible_sustitucion",
+      "urgencia": "media",
+      "especificaciones_tecnicas": "Presion de apilamiento optima en bateria estado solido: 5-10 MPa. Por debajo de 2 MPa se produce delaminacion significativa."
+    },
+    {
+      "id": "R005",
+      "nombre": "Fallo_Sensor_Salud_Bateria_SSB",
+      "dominio_especifico": "bateria_estado_solido",
+      "condiciones": [
+        "carga_normal_sin_alertas",
+        "autonomia_reducida_abruptamente",
+        "lecturas_soh_incorrectas_bms"
+      ],
+      "conclusion": "sensor_salud_bateria_defectuoso",
+      "certeza": 0.79,
+      "explicacion_positiva": "Las baterias de estado solido requieren sensores de State of Health especializados. Un sensor SOH calibrado para quimica convencional no detecta correctamente la impedancia en electrolitos solidos, reportando salud normal cuando la capacidad real ha caido significativamente.",
+      "explicacion_descarte": {
+        "fisuracion_electrolito": "Posible concurrencia, pero aqui las lecturas del BMS muestran SOH incorrecto, indicando fallo de sensor como causa primaria.",
+        "degradacion_natural": "Menos probable dado que el deterioro es abrupto y los registros historicos no muestran tendencia gradual."
+      },
+      "accion_requerida": "recalibracion_o_sustitucion_sensor_soh_especifico_ssb",
+      "urgencia": "media",
+      "especificaciones_tecnicas": "Sensor SOH para SSB debe medir impedancia en rango 1-100 kHz. Sensores convencionales solo miden voltaje OCV, insuficiente para electrolitos solidos."
+    }
+  ],
+  "casos_prueba": [
+    {
+      "id": "CT001",
+      "nombre": "Caso_Tipico_Degradacion_Termica",
+      "descripcion": "Bateria que se detiene en 75% durante carga con calor notable en zona de bateria",
+      "sintomas": ["temperatura_bateria_alta_sostenida", "carga_se_detiene_antes_100", "calor_excesivo_zona_bateria"],
+      "diagnostico_esperado": "degradacion_termica_electrolito_solido",
+      "tipo": "caso_tipico",
+      "cubierto": true,
+      "regla_aplicada": "R001"
+    },
+    {
+      "id": "CT002",
+      "nombre": "Caso_Limite_Carga_Normal_Autonomia_Reducida",
+      "descripcion": "Escenario limite tacito: carga aparentemente normal hasta 80% pero autonomia reducida 40% sin cambios en conduccion.",
+      "sintomas": ["carga_normal_hasta_80_por_ciento", "autonomia_reducida_abruptamente", "sin_cambios_habitos_conduccion"],
+      "diagnostico_esperado": "fisuracion_interfaz_electrolito_catodo",
+      "tipo": "caso_limite_tacito",
+      "cubierto": true,
+      "regla_aplicada": "R002"
+    },
+    {
+      "id": "CT003",
+      "nombre": "Caso_Dendrita_Carga_Rapida",
+      "descripcion": "Vehiculo con habito de carga rapida frecuente que presenta microcortes durante conduccion a temperatura normal",
+      "sintomas": ["carga_rapida_frecuente", "microcorte_electrico_durante_conduccion", "temperatura_bateria_normal"],
+      "diagnostico_esperado": "formacion_dendrita_litio_metalico",
+      "tipo": "caso_critico",
+      "cubierto": true,
+      "regla_aplicada": "R003"
+    },
+    {
+      "id": "CT004",
+      "nombre": "Caso_Delaminacion_Progresiva",
+      "descripcion": "Bateria de uso intensivo que pierde carga en reposo y muestra eficiencia reducida progresivamente",
+      "sintomas": ["eficiencia_carga_reducida_progresivamente", "bateria_pierde_carga_en_reposo", "ciclos_carga_descarga_frecuentes"],
+      "diagnostico_esperado": "delaminacion_interfaz_anodo_electrolito_solido",
+      "tipo": "caso_tipico",
+      "cubierto": true,
+      "regla_aplicada": "R004"
+    },
+    {
+      "id": "CT005",
+      "nombre": "Caso_Sensor_SOH_Defectuoso",
+      "descripcion": "Paradoja diagnostica: BMS reporta bateria sana, carga completa sin alertas, pero autonomia cayo 35% abruptamente",
+      "sintomas": ["carga_normal_sin_alertas", "autonomia_reducida_abruptamente", "lecturas_soh_incorrectas_bms"],
+      "diagnostico_esperado": "sensor_salud_bateria_defectuoso",
+      "tipo": "caso_limite_tacito",
+      "cubierto": true,
+      "regla_aplicada": "R005"
+    },
+    {
+      "id": "CT006",
+      "nombre": "Caso_Limite_Sin_Diagnostico_Vibraciones",
+      "descripcion": "Caso no cubierto: vibraciones mecanicas inusuales en zona de bateria sin sintomas electricos.",
+      "sintomas": ["vibraciones_mecanicas_zona_bateria", "sin_alertas_electricas", "sonido_inusual_aceleracion"],
+      "diagnostico_esperado": "fallo_estructural_stack_celdas_ssb",
+      "tipo": "caso_no_cubierto",
+      "cubierto": false,
+      "regla_aplicada": null,
+      "brecha_identificada": "El conocimiento tacito sobre vibraciones mecanicas en baterias SSB no fue capturado. Requiere nueva sesion de entrevista con experto."
+    },
+    {
+      "id": "CT007",
+      "nombre": "Caso_Limite_Frio_Extremo",
+      "descripcion": "Caso no cubierto: bateria SSB en clima frio extremo con autonomia drasticamente reducida y carga muy lenta.",
+      "sintomas": ["temperatura_ambiente_muy_baja", "carga_extremadamente_lenta", "autonomia_reducida_clima_frio"],
+      "diagnostico_esperado": "conductividad_ionica_reducida_temperatura",
+      "tipo": "caso_no_cubierto",
+      "cubierto": false,
+      "regla_aplicada": null,
+      "brecha_identificada": "La conductividad ionica del electrolito LLZO cae exponencialmente por debajo de 0C. Requiere regla especifica para SSB en frio extremo."
+    },
+    {
+      "id": "CT008",
+      "nombre": "Caso_Conflicto_Reglas_R002_R005",
+      "descripcion": "Caso de conflicto: multiples sintomas activan reglas R002 y R005 simultaneamente.",
+      "sintomas": ["carga_normal_hasta_80_por_ciento", "autonomia_reducida_abruptamente", "lecturas_soh_incorrectas_bms", "sin_cambios_habitos_conduccion"],
+      "diagnostico_esperado": "fisuracion_interfaz_electrolito_catodo",
+      "tipo": "caso_conflicto",
+      "cubierto": true,
+      "reglas_en_conflicto": ["R002", "R005"],
+      "resolucion": "R002 tiene mayor certeza (0.88 vs 0.79) y mas condiciones satisfechas, toma prioridad",
+      "regla_aplicada": "R002"
+    }
+  ],
+  "estadisticas": {
+    "total_reglas": 5,
+    "total_casos_prueba": 8,
+    "casos_cubiertos": 6,
+    "casos_no_cubiertos": 2,
+    "cobertura_porcentaje": 75.0,
+    "brechas_identificadas": ["CT006 - fallo_estructural_stack_celdas_ssb", "CT007 - conductividad_ionica_reducida_temperatura"]
+  }
+}

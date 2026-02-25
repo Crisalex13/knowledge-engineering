@@ -244,18 +244,6 @@ Reglas internas:
 
 ---
 
-## Pruebas unitarias
-
-Las pruebas están en `test_segundo_grado.py` y cubren las 5 formas
-de normalización, los 3 casos del discriminante, casos límite y una
-batería de 25 ecuaciones con soluciones conocidas verificadas por sustitución.
-
-```bash
-python3 -m unittest test_segundo_grado -v
-```
-
----
-
 ## Ejemplo de sesión completa
 
 ```
