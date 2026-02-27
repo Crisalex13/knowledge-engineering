@@ -87,6 +87,19 @@ Definir Deshacer_M(Valor_A, Resultado_C, Operador):
     Si Operador es '/': Retornar Valor_A / Resultado_C
 
 ```
+### Ejemplos practicos
+
+Ejemplo 1:
+![Ejemplo 1](../imgs/Primer%20grado%20Pseudo-codigo/terminal/1%20ejemplo.png)
+![Ejemplo 1.1](../imgs/Primer%20grado%20Pseudo-codigo/terminal/Ejemplo%20practico.png)
+
+Ejemplo 2:
+![Ejemplo 2](../imgs/Primer%20grado%20Pseudo-codigo/terminal/2%20pantalla.png)
+![Ejemplo 2.1](../imgs/Primer%20grado%20Pseudo-codigo/terminal/Ejemplo%20practico%202.png)
+
+Manejo de errores:
+![Ejemplo 3](../imgs/Primer%20grado%20Pseudo-codigo/terminal/error%201.png)
+![Ejemplo 3.1](../imgs/Primer%20grado%20Pseudo-codigo/terminal/error%202.png)
 
 ---
 
